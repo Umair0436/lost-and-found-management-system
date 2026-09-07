@@ -1,0 +1,19 @@
+<h1><%= @item.name %></h1>
+
+<p>
+  <strong>Description:</strong>
+  <%= @item.description %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @item.location %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @item.status %>
+</p>
+
+<%= link_to "Edit", edit_item_path(@item) %>
+<%= button_to "Delete", @item, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
