@@ -38,6 +38,41 @@
 
     </dl>
 
+    <% if @item.attachments.attached? %>
+      <div class="mt-8 border-t border-gray-100 pt-6">
+
+        <h2 class="mb-4 text-lg font-semibold text-gray-900">
+          Attachments
+        </h2>
+
+        <div class="space-y-6">
+
+          <% @item.attachments.each do |attachment| %>
+
+            <% if attachment.image? %>
+
+              <div>
+                <%= image_tag attachment,
+                  class: "max-h-96 w-auto rounded-xl border border-gray-200" %>
+              </div>
+
+            <% elsif attachment.video? %>
+
+              <div>
+                <%= video_tag attachment,
+                  controls: true,
+                  class: "max-h-96 w-full rounded-xl border border-gray-200" %>
+              </div>
+
+            <% end %>
+
+          <% end %>
+
+        </div>
+
+      </div>
+    <% end %>
+
     <% if @item.user_id == current_user.id %>
 
       <div class="mt-6 flex gap-3">
@@ -59,34 +94,56 @@
   </div>
 
   <div class="mt-8 rounded-2xl border border-gray-200 bg-white p-8">
-  <h2 class="mb-4 text-lg font-semibold text-gray-900">Comments</h2>
 
-  <% @item.comments.each do |comment| %>
-    <div class="mb-4 border-b border-gray-100 pb-4">
-      <p class="text-sm text-gray-900"><%= comment.body %></p>
-      <p class="mt-1 text-xs text-gray-500"><%= comment.user.email %></p>
+    <h2 class="mb-4 text-lg font-semibold text-gray-900">
+      Comments
+    </h2>
 
-      <% if comment.user_id == current_user.id %>
-        <div class="mt-2 flex gap-3">
-          <%= link_to "Edit", edit_item_comment_path(@item, comment),
-            class: "text-xs text-blue-600 hover:underline" %>
+    <% @item.comments.each do |comment| %>
 
-          <%= button_to "Delete", item_comment_path(@item, comment),
-            method: :delete,
-            data: { turbo_confirm: "Are you sure?" },
-            class: "text-xs text-red-600 hover:underline bg-transparent border-0 p-0" %>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
+      <div class="mb-4 border-b border-gray-100 pb-4">
 
-  <%= form_with model: [@item, @comment] do |f| %>
-    <%= f.text_area :body, rows: 3,
-      class: "w-full rounded-lg border border-gray-300 p-2 text-sm" %>
+        <p class="text-sm text-gray-900">
+          <%= comment.body %>
+        </p>
 
-    <%= f.submit "Add Comment",
-      class: "mt-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700" %>
-  <% end %>
-</div>
+        <p class="mt-1 text-xs text-gray-500">
+          <%= comment.user.email %>
+        </p>
+
+        <% if comment.user_id == current_user.id %>
+
+          <div class="mt-2 flex gap-3">
+
+            <%= link_to "Edit",
+              edit_item_comment_path(@item, comment),
+              class: "text-xs text-blue-600 hover:underline" %>
+
+            <%= button_to "Delete",
+              item_comment_path(@item, comment),
+              method: :delete,
+              data: { turbo_confirm: "Are you sure?" },
+              class: "text-xs text-red-600 hover:underline bg-transparent border-0 p-0" %>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    <% end %>
+
+    <%= form_with model: [@item, @comment] do |f| %>
+
+      <%= f.text_area :body,
+        rows: 3,
+        class: "w-full rounded-lg border border-gray-300 p-2 text-sm" %>
+
+      <%= f.submit "Add Comment",
+        class: "mt-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700" %>
+
+    <% end %>
+
+  </div>
 
 </div>
