@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-
   has_many :items, dependent: :destroy
   has_many :comments, dependent: :destroy
 
@@ -8,4 +7,3 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :timeoutable
 end
-

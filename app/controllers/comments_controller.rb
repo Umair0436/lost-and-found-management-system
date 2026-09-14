@@ -7,9 +7,9 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
-      redirect_to item_path(@item), notice: 'Comment was successfully created.'
+      redirect_to item_path(@item), notice: "Comment was successfully created."
     else
-      redirect_to item_path(@item), alert: 'Failed to create comment.'
+      redirect_to item_path(@item), alert: "Failed to create comment."
     end
   end
 
@@ -24,12 +24,12 @@ class CommentsController < ApplicationController
 
     if @comment.user == current_user
       if @comment.update(comment_params)
-        redirect_to item_path(@item), notice: 'Comment was successfully updated.'
+        redirect_to item_path(@item), notice: "Comment was successfully updated."
       else
         render :edit, status: :unprocessable_entity
       end
     else
-      redirect_to item_path(@item), alert: 'You are not authorized to edit this comment.'
+      redirect_to item_path(@item), alert: "You are not authorized to edit this comment."
     end
   end
 
@@ -39,9 +39,9 @@ class CommentsController < ApplicationController
 
     if @comment.user == current_user
       @comment.destroy
-      redirect_to item_path(@item), notice: 'Comment was successfully deleted.'
+      redirect_to item_path(@item), notice: "Comment was successfully deleted."
     else
-      redirect_to item_path(@item), alert: 'You are not authorized to delete this comment.'
+      redirect_to item_path(@item), alert: "You are not authorized to delete this comment."
     end
   end
 

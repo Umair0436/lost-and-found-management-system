@@ -1,5 +1,4 @@
 class ItemsController < ApplicationController
-
 def index
   @q = Item.ransack(params[:q])
   @items = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(5)
@@ -26,7 +25,6 @@ def index
   end
 
  def edit
-
     @item = Item.find(params[:id])
 
     if @item.user_id != current_user.id
@@ -34,7 +32,6 @@ def index
       redirect_to items_path, alert: "You are not the owner of this item."
 
     end
-
   end
 
   def update
@@ -58,7 +55,7 @@ def destroy
   end
   @item.destroy
   redirect_to items_path
-end   
+end
 
 private
 
@@ -71,5 +68,4 @@ def item_params
     attachments: []
   )
 end
-
 end
