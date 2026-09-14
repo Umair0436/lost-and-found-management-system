@@ -3,27 +3,84 @@
   <div class="mb-8 flex items-center justify-between">
     <h1 class="text-2xl font-bold text-gray-900">All complaints</h1>
 
-    <%= link_to "New complaint", new_item_path,
-      class: "rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700" %>
+
+<%= link_to "New complaint", new_item_path,
+  class: "rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700" %>
+
+
   </div>
+
+  <!-- Filters -->
+
+  <div class="mb-8 rounded-xl border border-gray-200 bg-white p-5">
+    <h2 class="mb-4 text-lg font-semibold text-gray-900">Filter complaints</h2>
+
+<%= search_form_for @q, url: items_path, method: :get do |f| %>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+
+    <div>
+      <%= f.label :name_cont, "Name",
+        class: "mb-1 block text-sm font-medium text-gray-700" %>
+
+      <%= f.search_field :name_cont,
+        placeholder: "Search by name...",
+        class: "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <div>
+      <%= f.label :location_cont, "Location",
+        class: "mb-1 block text-sm font-medium text-gray-700" %>
+
+      <%= f.search_field :location_cont,
+        placeholder: "Search by location...",
+        class: "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+    <div>
+      <%= f.label :status_eq, "Status",
+        class: "mb-1 block text-sm font-medium text-gray-700" %>
+
+      <%= f.select :status_eq,
+        [["All", ""], ["Found", "found"], ["Lost", "lost"]],
+        {},
+        class: "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500" %>
+    </div>
+
+  </div>
+
+  <div class="mt-4 flex gap-3">
+    <%= f.submit "Filter",
+      class: "rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700" %>
+
+    <%= link_to "Clear", items_path,
+      class: "rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50" %>
+  </div>
+
+<% end %>
+
+
+  </div>
+
+  <!-- Complaints -->
 
   <div class="space-y-3">
     <% @items.each do |item| %>
       <div class="flex items-center justify-between rounded-xl border border-gray-200 bg-white p-5">
         <h2 class="font-medium text-gray-900"><%= item.name %></h2>
 
-        <%= link_to "More details", item_path(item),
-          class: "text-sm font-medium text-blue-600 hover:text-blue-700" %>
-      </div>
-    <% end %>
+
+    <%= link_to "More details", item_path(item),
+      class: "text-sm font-medium text-blue-600 hover:text-blue-700" %>
+  </div>
+<% end %>
+
   </div>
 
-  <% if @items.empty? %>
-    <p class="rounded-xl border border-dashed border-gray-300 p-10 text-center text-sm text-gray-500">
-      No complaints yet.
-    </p>
-  <% end %>
+<% if @items.empty? %> <p class="rounded-xl border border-dashed border-gray-300 p-10 text-center text-sm text-gray-500">
+No complaints found. </p>
+<% end %>
 
-  <%= paginate @items %>
+<%= paginate @items %>
 
 </div>

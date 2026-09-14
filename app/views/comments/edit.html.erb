@@ -1,0 +1,11 @@
+<div class="mx-auto max-w-3xl px-4 py-10">
+  <h1 class="mb-6 text-2xl font-bold text-gray-900">Edit Comment</h1>
+
+  <%= form_with model: [@item, @comment] do |f| %>
+    <%= f.text_area :body, rows: 3,
+      class: "w-full rounded-lg border border-gray-300 p-2 text-sm" %>
+
+    <%= f.submit "Update Comment",
+      class: "mt-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700" %>
+  <% end %>
+</div>

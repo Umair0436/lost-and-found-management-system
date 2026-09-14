@@ -1,31 +1,65 @@
 <%= form_with model: item do |form| %>
 
-  <% if form.object.errors.any? %>
-    <p class="error"><%= form.object.errors.full_messages.first %></p>
+  <% if item.errors.any? %>
+    <div class="mb-6 rounded-lg bg-red-50 p-4 text-red-700">
+      <h2 class="font-semibold">
+        <%= pluralize(item.errors.count, "error") %> prevented this complaint from being saved:
+      </h2>
+
+      <ul class="mt-2 list-disc pl-5 text-sm">
+        <% item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
 
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+  <div class="space-y-6">
 
-  <div>
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
+    <!-- Name -->
+    <div>
+      <%= form.label :name, "Name",
+        class: "mb-2 block text-sm font-semibold text-gray-700" %>
 
-  <div>
-    <%= form.label :location %>
-    <%= form.text_field :location %>
-  </div>
+      <%= form.text_field :name,
+        class: "w-full rounded-xl border border-gray-300 px-4 py-3 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none" %>
+    </div>
 
-  <div>
-    <%= form.label :status %>
-    <%= form.text_field :status %>
-  </div>
+    <!-- Description -->
+    <div>
+      <%= form.label :description, "Description",
+        class: "mb-2 block text-sm font-semibold text-gray-700" %>
 
-  <div>
-    <%= form.submit %>
+      <%= form.text_area :description, rows: 5,
+        class: "w-full rounded-xl border border-gray-300 px-4 py-3 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none" %>
+    </div>
+
+    <!-- Location -->
+    <div>
+      <%= form.label :location, "Location",
+        class: "mb-2 block text-sm font-semibold text-gray-700" %>
+
+      <%= form.text_field :location,
+        class: "w-full rounded-xl border border-gray-300 px-4 py-3 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none" %>
+    </div>
+
+    <!-- Status -->
+    <div>
+      <%= form.label :status, "Status",
+        class: "mb-2 block text-sm font-semibold text-gray-700" %>
+
+      <%= form.select :status,
+        [["Lost", "lost"], ["Found", "found"]],
+        {},
+        class: "w-full rounded-xl border border-gray-300 bg-white px-4 py-3 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none" %>
+    </div>
+
+    <!-- Button -->
+    <div class="pt-4">
+      <%= form.submit "Update Complaint",
+        class: "w-full rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white shadow-sm transition hover:bg-blue-700" %>
+    </div>
+
   </div>
 
 <% end %>

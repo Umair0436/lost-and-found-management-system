@@ -1,13 +1,13 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!
 
-  def index
-    @items = Item.all
-    @items = Item.order(created_at: :desc).page(params[:page]).per(5)
+def index
+  @q = Item.ransack(params[:q])
+  @items = @q.result(distinct: true).order(created_at: :desc).page(params[:page]).per(5)
   end
 
   def show
-    @item = Item.find(params[:id])
+  @item = Item.find(params[:id])
+  @comment = Comment.new
   end
 
   def new
@@ -38,25 +38,27 @@ class ItemsController < ApplicationController
   end
 
   def update
-    @item = Item.find(params[:id])
-    if @current_user != @item.user
-      redirect_to items_path, alert: "You are not the owner of this item."
-    end
-    if @item.update(item_params)
-      redirect_to @item
-    else
-      render :edit  
-      end
+  @item = Item.find(params[:id])
+  if current_user != @item.user
+    redirect_to items_path, alert: "You are not the owner of this item."
+    return
   end
+  if @item.update(item_params)
+    redirect_to @item
+  else
+    render :edit
+  end
+end
 
-  def destroy
-    @item = Item.find(params[:id])
-    if @item.user_id != current_user.id
-      redirect_to items_path, alert: "You are not the owner of this item."
-    end
-    @item.destroy
-    redirect_to items_path
-  end   
+def destroy
+  @item = Item.find(params[:id])
+  if @item.user_id != current_user.id
+    redirect_to items_path, alert: "You are not the owner of this item."
+    return
+  end
+  @item.destroy
+  redirect_to items_path
+end   
 
   private
 

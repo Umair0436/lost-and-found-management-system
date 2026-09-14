@@ -70,3 +70,7 @@ gem "devise", "~> 5.0"
 gem "tailwindcss-rails", "~> 4.6"
 
 gem "kaminari", "~> 1.2"
+
+gem "rubocop", "~> 1.0", require: false
+
+gem 'ransack'
