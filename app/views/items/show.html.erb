@@ -1,19 +1,47 @@
-<h1><%= @item.name %></h1>
+<div class="mx-auto max-w-3xl px-4 py-10">
 
-<p>
-  <strong>Description:</strong>
-  <%= @item.description %>
-</p>
+  <div class="mb-6">
+    <%= link_to "← Back to all complaints", items_path,
+      class: "text-sm text-gray-500 hover:text-gray-700" %>
+  </div>
 
-<p>
-  <strong>Location:</strong>
-  <%= @item.location %>
-</p>
+  <div class="rounded-2xl border border-gray-200 bg-white p-8">
 
-<p>
-  <strong>Status:</strong>
-  <%= @item.status %>
-</p>
+    <h1 class="mb-6 text-2xl font-bold text-gray-900"><%= @item.name %></h1>
 
-<%= link_to "Edit", edit_item_path(@item) %>
-<%= button_to "Delete", @item, method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+    <dl class="space-y-4 text-sm">
+      <div>
+        <dt class="font-medium text-gray-500">Description</dt>
+        <dd class="mt-1 text-gray-900"><%= @item.description %></dd>
+      </div>
+
+      <div>
+        <dt class="font-medium text-gray-500">Location</dt>
+        <dd class="mt-1 text-gray-900"><%= @item.location %></dd>
+      </div>
+
+      <div>
+        <dt class="font-medium text-gray-500">Status</dt>
+        <dd class="mt-1">
+          <span class="inline-block rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-700">
+            <%= @item.status %>
+          </span>
+        </dd>
+      </div>
+    </dl>
+
+    <h2><%= @item.name %></h2>
+
+<p><%= @item.description %></p>
+
+<% if @item.user_id == current_user.id %>
+  <%= link_to "Edit", edit_item_path(@item) %>
+
+  <%= button_to "Delete", item_path(@item),
+      method: :delete,
+      data: { turbo_confirm: "Are you sure?" } %>
+<% end %>
+
+  </div>
+
+</div>

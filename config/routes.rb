@@ -1,17 +1,14 @@
 Rails.application.routes.draw do
+  devise_for :users
 
-  get "/items", to: "items#index"
+  resources :items
 
-  get "/items/new", to: "items#new", as: :new_item
+  root to: "items#index"
+  # authenticated :user do
+  #   root to: "items#index"
+  # end
 
-  get "/items/:id/edit", to: "items#edit", as: :edit_item
-
-  get "/items/:id", to: "items#show", as: :item
-
-  post "/items", to: "items#create"
-
-  patch "/items/:id", to: "items#update"
-
-  delete "/items/:id", to: "items#destroy"
-
+  # unauthenticated :user do
+  #   root to: "devise/sessions#new"
+  # end
 end
