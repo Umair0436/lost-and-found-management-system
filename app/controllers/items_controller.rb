@@ -60,10 +60,16 @@ def destroy
   redirect_to items_path
 end   
 
-  private
+private
 
-  def item_params
-    params.require(:item).permit(:name, :description, :location, :status)
-  end
+def item_params
+  params.require(:item).permit(
+    :name,
+    :description,
+    :location,
+    :status,
+    attachments: []
+  )
+end
 
 end

@@ -13,7 +13,7 @@
       </ul>
     </div>
   <% end %>
-
+  
   <div class="space-y-6">
 
     <!-- Name -->
@@ -61,5 +61,13 @@
     </div>
 
   </div>
+  <div>
+  <%= form.label :attachments, "Attachments",
+    class: "block text-sm font-medium text-gray-700" %>
+
+  <%= form.file_field :attachments,
+    multiple: true,
+    class: "mt-2 block w-full text-sm text-gray-500" %>
+</div>
 
 <% end %>
