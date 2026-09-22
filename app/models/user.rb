@@ -12,5 +12,5 @@ end
 private
 
   def send_welcome_email
-    SendWelcomeEmailJob.perform_now(id)
+    WelcomeEmailJob.perform_later(id)
   end
