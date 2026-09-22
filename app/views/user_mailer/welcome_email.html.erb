@@ -1,3 +1,31 @@
-<h1>Welcome, <%= @user.email %>!</h1>
+<h1>Welcome to Lost & Found!</h1>
 
-<p>Your account has been created successfully.</p>
+<p>Hi <%= @user.email.split('@').first.capitalize %>,</p>
+
+<p>
+  Welcome to <strong>Lost & Found</strong> — a simple way to report lost items,
+  share found items, and help reunite people with their belongings.
+</p>
+
+<p>With your account, you can:</p>
+
+<ul>
+  <li>Report an item you've lost</li>
+  <li>Post an item you've found</li>
+  <li>Browse reported lost and found items</li>
+  <li>Comment on items to help connect with their owners</li>
+</ul>
+
+<p>
+  We hope you'll never lose anything — but if you do, we're here to help.
+</p>
+
+<p>
+  <strong>Ready to get started?</strong><br>
+  Log in to your account and start exploring.
+</p>
+
+<p>
+  Thanks for joining us!<br>
+  <strong>The Lost & Found Team</strong>
+</p>

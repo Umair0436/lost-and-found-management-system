@@ -78,3 +78,5 @@ gem "ransack"
 gem "letter_opener"
 
 gem "sidekiq"
+
+gem "dotenv-rails", groups: [:development, :test]
