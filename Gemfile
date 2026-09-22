@@ -74,3 +74,7 @@ gem "kaminari", "~> 1.2"
 gem "rubocop", "~> 1.0", require: false
 
 gem "ransack"
+
+gem "letter_opener"
+
+gem "sidekiq"
